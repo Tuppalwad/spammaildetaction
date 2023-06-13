@@ -2,8 +2,12 @@ import streamlit as st
 import pickle
 import string
 import spacy
+from spacy.util import load_model_from_path
+from pathlib import Path
 
-nlp = spacy.load("en_core_web_sm")
+# Load the model manually
+model_path = Path("en_core_web_sm-3.2.0\en_core_web_sm\en_core_web_sm-3.2.0")
+nlp = load_model_from_path(model_path)
 
 def transform_text(text):
     text = text.lower()
@@ -13,8 +17,8 @@ def transform_text(text):
 
     return " ".join(transformed_text)
 
-tfidf = pickle.load(open('vectorizer.pkl','rb'))
-model = pickle.load(open('model.pkl','rb'))
+tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
+model = pickle.load(open('model.pkl', 'rb'))
 
 st.title("Email/SMS Spam Classifier")
 
